@@ -6,8 +6,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-
-
+var exphbs = require('express-handlebars');
 
 
 
@@ -19,6 +18,14 @@ var path = require('path');
 
 var app = express(); // Tells node that we are creating an "express" server
 var PORT = process.env.PORT || 80; // Sets an initial port. We'll use this later in our listener
+
+// why does this need to be lower?
+
+app.engine('handlebars', exphbs({
+	defaultLayout: 'home'
+}));
+
+app.set('view engine', 'handlebars');
 
 // BodyParser makes it easy for our server to interpret data sent to it.
 // The code below is pretty standard.
@@ -39,8 +46,8 @@ app.use(bodyParser.json({type:'application/vnd.api+json'}));
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs. 
 // ================================================================================
 
-require('./app/routing/api-routes.js')(app); 
-require('./app/routing/html-routes.js')(app);
+require('./routing/api-routes.js')(app); 
+require('./routing/html-routes.js')(app);
 
 
 

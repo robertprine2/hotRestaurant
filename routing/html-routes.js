@@ -4,7 +4,9 @@
 // ===============================================================================
 var path = require('path');
 
-
+var tableData 		= require('../data/table-data.js');
+var waitListData 	= require('../data/waitinglist-data.js');
+var path 			= require('path');
 
 
 
@@ -20,11 +22,12 @@ module.exports = function(app){
 	// ---------------------------------------------------------------------------
 
 	app.get('/tables', function(req, res){
-		res.sendFile(path.join(__dirname + '/../public/tables.html'));
+		console.log(tableData);
+		res.render('tables', {tdata: tableData, rdata: waitListData});
 	});
 
 	app.get('/reserve', function(req, res){
-		res.sendFile(path.join(__dirname + '/../public/reserve.html'));
+		res.render('reserve', {})
 	});
 
 	// If no matching route is found default to home
